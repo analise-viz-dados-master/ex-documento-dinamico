@@ -1,0 +1,77 @@
+---
+title: "Remuneração Servidores Públicos Ativos do EMG"
+author: "Francisco Alves"
+output: 
+  tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+library("tidyverse")
+```
+
+Este arquivo é um documento [rmarkdown](https://rmarkdown.rstudio.com/). O rmarkdown é um documento dinâmico que permite a combinação de texto, escrito em markdown, com trechos de código em R. 
+
+No trecho abaixo, vamos importar a base de dados com a remuneração dos servidores ativos do Poder Executivo do Estado de Minas Gerais (EMG).
+
+```{r import, message=FALSE}
+dat <- read_csv2("data-raw/servidoresMG_1219_top10.csv",
+  col_types = "ccccccccnnncnnnnnnnnnnnnnnnnnnnnnnn",
+)
+```
+
+O primeiro princípio para compreensão de dados é
+
+> __Shewhart's Rule One for the Presentation of Data:__
+> 
+> _Data should always be presented in such a way that preserves the evidence in the data for all the predictions that might be made from these data._
+
+Segundo @wheeler2000, esse princípio sugere que
+
+1. A table of values should accompany most graphs;
+2. A graph should accompany any table.
+
+O [tufte handout](https://rstudio.github.io/tufte/) é um estilo de documento utilizado por [Edward Tufte](https://en.wikipedia.org/wiki/Edward_Tufte) em seus livros que faz uso intensivo de anotações laterais para inserção de conteúdo.
+
+Esse documento é ideal para seguirmos o primeiro princípio para compreensão de dados. Um caso concreto ajuda a clarificar o método. 
+
+```{r, echo=FALSE, fig.margin = TRUE, fig.cap = c("Distribuição da remuneração dos servidores da AGE", "Distribuição da remuneração dos servidores da SEF")}
+dat %>%
+  select(orgao = descinst, vl_remuneracao_liquida = rem_pos) %>% 
+  filter(orgao == "ADVOCACIA GERAL DO ESTADO") %>%
+  ggplot(aes(x = vl_remuneracao_liquida)) +
+  geom_density() +
+  geom_vline(aes(xintercept = median(vl_remuneracao_liquida)),
+    color = "red",
+    linetype = "dashed"
+  ) +
+  xlab("Remuneração (Em R$ 1,00)") +
+  ylab(NULL) +
+  scale_y_continuous(labels = scales::comma)
+
+dat %>%
+  select(orgao = descinst, vl_remuneracao_liquida = rem_pos) %>% 
+  filter(orgao == "SECRETARIA DA FAZENDA") %>%
+  ggplot(aes(x = vl_remuneracao_liquida)) +
+  geom_density() +
+  geom_vline(aes(xintercept = median(vl_remuneracao_liquida)),
+    color = "red",
+    linetype = "dashed"
+  ) +
+  xlab("Remuneração (Em R$ 1,00)") +
+  ylab(NULL) +
+  scale_y_continuous(labels = scales::comma)
+
+dat %>%
+  select(orgao = descinst, vl_remuneracao_liquida = rem_pos) %>% 
+  group_by(orgao) %>%
+  summarize(
+    vl_mediana = median(vl_remuneracao_liquida),
+    n = n()
+  ) %>%
+  arrange(desc(vl_mediana)) %>%
+  filter(n > 10) %>%
+  top_n(10, vl_mediana) %>%
+  knitr::kable(col.names = c("Órgão ou Entidade", "Mediana Remuneração", "Qtd. Pagamentos"))
+```
+
+A mediana da remuneração dos servidores da Advocacia-Geral do Estado (AGE) e da Secretaria de Estado da Fazenda (SEF) são próximos. No entanto, a distribuição dos salários é distinta. A AGE possui claramente duas classes diferentes de servidores, enquanto a SEF está melhor distribuída.
