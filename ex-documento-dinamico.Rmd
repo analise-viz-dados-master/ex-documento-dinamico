@@ -14,8 +14,12 @@ Este arquivo é um documento [rmarkdown](https://rmarkdown.rstudio.com/). O rmar
 No trecho abaixo, vamos importar a base de dados com a remuneração dos servidores ativos do Poder Executivo do Estado de Minas Gerais (EMG).
 
 ```{r import, message=FALSE}
-# necessário utilizar arquivo completo "data-raw/servidoresMG_1219.csv" para
-# manipulação com filter() e top_n() ser necessária
+#======================================================================
+# necessário utilizar arquivo completo "data-raw/servidoresMG_1219.csv" de
+# http://200.198.22.105/fgs-adm/remuneracao/downloadRemuneracao.php?mes=1219
+# para manipulação com filter() e top_n() ser necessária
+#======================================================================
+
 dat <- read_csv2("data-raw/servidoresMG_1219_top10.csv",
   col_types = "ccccccccnnncnnnnnnnnnnnnnnnnnnnnnnn",
 )
