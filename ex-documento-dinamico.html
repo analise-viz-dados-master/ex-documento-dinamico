@@ -304,7 +304,13 @@ if (window.hljs) {
 
 <p>Este arquivo é um documento <a href="https://rmarkdown.rstudio.com/">rmarkdown</a>. O rmarkdown é um documento dinâmico que permite a combinação de texto, escrito em markdown, com trechos de código em R.</p>
 <p>No trecho abaixo, vamos importar a base de dados com a remuneração dos servidores ativos do Poder Executivo do Estado de Minas Gerais (EMG).</p>
-<pre class="r"><code>dat &lt;- read_csv2(&quot;data-raw/servidoresMG_1219_top10.csv&quot;,
+<pre class="r"><code>#======================================================================
+# necessário utilizar arquivo completo &quot;data-raw/servidoresMG_1219.csv&quot; de
+# http://200.198.22.105/fgs-adm/remuneracao/downloadRemuneracao.php?mes=1219
+# para manipulação com filter() e head() ser necessária
+#======================================================================
+
+dat &lt;- read_csv2(&quot;data-raw/servidoresMG_1219_top10.csv&quot;,
   col_types = &quot;ccccccccnnncnnnnnnnnnnnnnnnnnnnnnnn&quot;,
 )</code></pre>
 <p>O primeiro princípio para compreensão de dados é</p>
@@ -340,52 +346,52 @@ if (window.hljs) {
 <tbody>
 <tr class="odd">
 <td align="left">ADVOCACIA GERAL DO ESTADO</td>
-<td align="right">29178.68</td>
+<td align="right">29242.64</td>
 <td align="right">794</td>
 </tr>
 <tr class="even">
 <td align="left">SECRETARIA DA FAZENDA</td>
-<td align="right">28642.24</td>
+<td align="right">28705.02</td>
 <td align="right">2918</td>
 </tr>
 <tr class="odd">
 <td align="left">CONTROLADORIA GERAL DO ESTADO</td>
-<td align="right">19230.64</td>
+<td align="right">19272.79</td>
 <td align="right">191</td>
 </tr>
 <tr class="even">
 <td align="left">FUNDACAO JOAO PINHEIRO</td>
-<td align="right">13122.18</td>
+<td align="right">13150.94</td>
 <td align="right">223</td>
 </tr>
 <tr class="odd">
 <td align="left">FEAM FUNDACAO DO MEIO AMBIENTE</td>
-<td align="right">12950.20</td>
+<td align="right">12978.59</td>
 <td align="right">104</td>
 </tr>
 <tr class="even">
 <td align="left">IGAM INST DE GESTAO DAS AGUAS</td>
-<td align="right">12752.17</td>
+<td align="right">12780.12</td>
 <td align="right">150</td>
 </tr>
 <tr class="odd">
 <td align="left">SECRETARIA DO MEIO AMBIENTE</td>
-<td align="right">11532.72</td>
+<td align="right">11557.99</td>
 <td align="right">830</td>
 </tr>
 <tr class="even">
 <td align="left">IMA INST MINEIRO AGROPECUARIA</td>
-<td align="right">11370.08</td>
+<td align="right">11395.00</td>
 <td align="right">1353</td>
 </tr>
 <tr class="odd">
 <td align="left">IEF INST EST DE FLORESTAS</td>
-<td align="right">10856.66</td>
+<td align="right">10880.46</td>
 <td align="right">769</td>
 </tr>
 <tr class="even">
 <td align="left">ARSAE MG</td>
-<td align="right">10813.00</td>
+<td align="right">10836.70</td>
 <td align="right">78</td>
 </tr>
 </tbody>
