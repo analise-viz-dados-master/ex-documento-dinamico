@@ -67,7 +67,7 @@ dat %>%
   ylab(NULL) +
   scale_y_continuous(labels = scales::comma)
 
-ipca <- 1.002192 # inflacao acumulada 2020
+ipca <- 1.002192 # inflacao acumulada 2020 até abril
 
 dat %>%
   select(orgao = descinst, vl_remuneracao_liquida = rem_pos) %>% 
