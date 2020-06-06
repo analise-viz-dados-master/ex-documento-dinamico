@@ -14,6 +14,8 @@ Este arquivo é um documento [rmarkdown](https://rmarkdown.rstudio.com/). O rmar
 No trecho abaixo, vamos importar a base de dados com a remuneração dos servidores ativos do Poder Executivo do Estado de Minas Gerais (EMG).
 
 ```{r import, message=FALSE}
+# necessário utilizar arquivo completo "data-raw/servidoresMG_1219.csv" para
+# manipulação com filter() e top_n() ser necessária
 dat <- read_csv2("data-raw/servidoresMG_1219_top10.csv",
   col_types = "ccccccccnnncnnnnnnnnnnnnnnnnnnnnnnn",
 )
@@ -69,7 +71,7 @@ dat %>%
     n = n()
   ) %>%
   arrange(desc(vl_mediana)) %>%
-  filter(n > 10) %>%
+  filter(n > 10) %>% # remove orgaos com menos de 10 servidores
   top_n(10, vl_mediana) %>%
   knitr::kable(col.names = c("Órgão ou Entidade", "Mediana Remuneração", "Qtd. Pagamentos"))
 ```
