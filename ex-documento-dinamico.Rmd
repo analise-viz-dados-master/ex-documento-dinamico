@@ -67,11 +67,14 @@ dat %>%
   ylab(NULL) +
   scale_y_continuous(labels = scales::comma)
 
+ipca <- 1.002192 # inflacao acumulada 2020
+
 dat %>%
   select(orgao = descinst, vl_remuneracao_liquida = rem_pos) %>% 
+  mutate(vl_remuneracao_liquida_real = vl_remuneracao_liquida*ipca) %>% 
   group_by(orgao) %>%
   summarize(
-    vl_mediana = median(vl_remuneracao_liquida),
+    vl_mediana = median(vl_remuneracao_liquida_real),
     n = n()
   ) %>%
   arrange(desc(vl_mediana)) %>%
