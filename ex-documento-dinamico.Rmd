@@ -20,7 +20,7 @@ No trecho abaixo, vamos importar a base de dados com a remuneração dos servido
 # para manipulação com filter() e head() ser necessária
 #======================================================================
 
-dat <- read_csv2("data-raw/servidoresMG_1219_top10.csv",
+df <- read_csv2("data-raw/servidoresMG_1219_top10.csv",
   col_types = "ccccccccnnncnnnnnnnnnnnnnnnnnnnnnnn",
 )
 ```
@@ -41,7 +41,7 @@ O [tufte handout](https://rstudio.github.io/tufte/) é um estilo de documento ut
 Esse documento é ideal para seguirmos o primeiro princípio para compreensão de dados. Um caso concreto ajuda a clarificar o método. 
 
 ```{r, echo=FALSE, fig.margin = TRUE, fig.cap = c("Distribuição da remuneração dos servidores da AGE", "Distribuição da remuneração dos servidores da SEF")}
-dat %>%
+df %>%
   select(orgao = descinst, vl_remuneracao_liquida = rem_pos) %>% 
   filter(orgao == "ADVOCACIA GERAL DO ESTADO") %>%
   ggplot(aes(x = vl_remuneracao_liquida)) +
@@ -54,7 +54,7 @@ dat %>%
   ylab(NULL) +
   scale_y_continuous(labels = scales::comma)
 
-dat %>%
+df %>%
   select(orgao = descinst, vl_remuneracao_liquida = rem_pos) %>% 
   filter(orgao == "SECRETARIA DA FAZENDA") %>%
   ggplot(aes(x = vl_remuneracao_liquida)) +
@@ -69,7 +69,7 @@ dat %>%
 
 ipca <- 1.002192 # inflacao acumulada 2020 até abril
 
-dat %>%
+df %>%
   select(orgao = descinst, vl_remuneracao_liquida = rem_pos) %>% 
   mutate(vl_remuneracao_liquida_real = vl_remuneracao_liquida*ipca) %>% 
   group_by(orgao) %>%
