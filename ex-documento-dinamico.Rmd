@@ -17,7 +17,7 @@ No trecho abaixo, vamos importar a base de dados com a remuneração dos servido
 #======================================================================
 # necessário utilizar arquivo completo "data-raw/servidoresMG_1219.csv" de
 # http://200.198.22.105/fgs-adm/remuneracao/downloadRemuneracao.php?mes=1219
-# para manipulação com filter() e top_n() ser necessária
+# para manipulação com filter() e head() ser necessária
 #======================================================================
 
 dat <- read_csv2("data-raw/servidoresMG_1219_top10.csv",
@@ -76,7 +76,7 @@ dat %>%
   ) %>%
   arrange(desc(vl_mediana)) %>%
   filter(n > 10) %>% # remove orgaos com menos de 10 servidores
-  top_n(10, vl_mediana) %>%
+  head(10) %>%
   knitr::kable(col.names = c("Órgão ou Entidade", "Mediana Remuneração", "Qtd. Pagamentos"))
 ```
 
